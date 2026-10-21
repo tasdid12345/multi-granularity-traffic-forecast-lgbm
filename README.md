@@ -17,6 +17,26 @@ python analysis.py
 
 Results: results are written to `results.json` (and an optional chart to `figures/`).
 
+## Results (latest run)
+
+On the public UCI Metro Interstate Traffic Volume dataset, a ridge regression on the previous 24 hourly counts reached a test MAE of 307.96 vehicles per hour, while my LightGBM model with multi-granularity lag and calendar features reached 166.79 on the same held-out split.
+
+| Metric | Value |
+|---|---|
+| baseline_score | 308 |
+| improved_score | 166.8 |
+| improvement | 141.2 |
+| baseline_score_std | 0 |
+| improved_score_std | 0.05859 |
+| baseline_rmse | 459.5 |
+| improved_rmse | 249.7 |
+| baseline_r2 | 0.9464 |
+| improved_r2 | 0.9842 |
+
+Run on 2026-10-21. Full output: [results.json](results.json) · [run.log](run.log)
+
+Notes: Single sensor used as a stand-in for car activity; the paper's graph diffusion model is not reproduced and no paper numbers are compared. Gaps in the hourly series are forward-filled. Ridge is deterministic, so its seed std is 0. Results are from one chronological split on one dataset.
+
 ## Reference
 
 This project is motivated by the following paper:
