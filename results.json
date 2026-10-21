@@ -1,0 +1,29 @@
+{
+  "question": "Can a LightGBM model with multi-granularity lag and calendar features beat a standard ridge lag model at forecasting next-hour traffic volume on the public UCI Metro Interstate dataset?",
+  "method": "Chronological 80/20 split; ridge on 24 hourly lags vs LightGBM on multi-granularity lag, rolling-mean, calendar and weather features; LightGBM grid tuned by time-series CV on training data; test set used once.",
+  "dataset": {
+    "name": "UCI Metro Interstate Traffic Volume",
+    "source_url": "https://archive.ics.uci.edu/dataset/492/metro+interstate+traffic+volume",
+    "n_rows": 48204,
+    "n_train": 41906,
+    "n_test": 10477,
+    "same_as_paper": false,
+    "baseline_is_papers_method": false
+  },
+  "metric_name": "MAE (mean absolute error, vehicles per hour)",
+  "higher_is_better": false,
+  "baseline": "Ridge regression (alpha=1.0) on the previous 24 hourly traffic counts.",
+  "improved": "LightGBM regressor with 24 hourly lags, lag-168, 24h and 168h rolling means, hour, day-of-week, holiday and weather features; small CV-tuned grid over num_leaves and learning_rate.",
+  "metrics": {
+    "baseline_score": 307.96357893793197,
+    "improved_score": 166.7865595460701,
+    "improvement": 141.17701939186188,
+    "baseline_score_std": 0.0,
+    "improved_score_std": 0.0585941773928373,
+    "baseline_rmse": 459.4509697091832,
+    "improved_rmse": 249.71251874650434,
+    "baseline_r2": 0.9464409788590492,
+    "improved_r2": 0.9841789189491045
+  },
+  "notes": "Single sensor used as a stand-in for car activity; the paper's graph diffusion model is not reproduced and no paper numbers are compared. Gaps in the hourly series are forward-filled. Ridge is deterministic, so its seed std is 0. Results are from one chronological split on one dataset."
+}
